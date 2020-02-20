@@ -3,6 +3,20 @@
 #include "BattleTank.h"
 #include "TankPlayerController.h"
 
+void ATankPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play"));
+	ATank* CurrentTank = nullptr;
+	CurrentTank = GetControlledTank();
+	if (CurrentTank == nullptr) {
+		return;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play %s"), *CurrentTank->GetName());
+
+
+}
+
 ATank* ATankPlayerController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
