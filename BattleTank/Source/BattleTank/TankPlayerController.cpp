@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-#include "BattleTank.h"
 #include "TankPlayerController.h"
+#include "BattleTank.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -14,6 +13,20 @@ void ATankPlayerController::BeginPlay()
 	}
 	UE_LOG(LogTemp, Warning, TEXT("PlayerController Begin Play %s"), *CurrentTank->GetName());
 
+
+}
+
+void ATankPlayerController::Tick(float Deltatime)
+{
+	Super::Tick(Deltatime);
+
+}
+
+void ATankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledTank()) {
+		return;
+	}
 
 }
 
