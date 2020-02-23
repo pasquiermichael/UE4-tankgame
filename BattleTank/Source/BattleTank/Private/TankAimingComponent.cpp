@@ -2,6 +2,8 @@
 
 #include "Components/ActorComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "CollisionQueryParams.h"
+#include "TankBarrel.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
 #include "TankAimingComponent.h"
@@ -25,10 +27,26 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		return;
 	}
 
-	
+	FVector OutLaunchVelocity(0);
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	FCollisionResponseParams f;
+	const TArray<AActor*> ActorToIgnoreArray;
+
+	bool HasProjectileVelocity = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.0f, 0.0f, ESuggestProjVelocityTraceOption::DoNotTrace, f, ActorToIgnoreArray, false);
+	if (HasProjectileVelocity) {
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		MoveBarrel(AimDirection);
+		//UE_LOG(LogTemp, Warning, TEXT("Tank %s Aiming at %s"), *GetOwner()->GetName(), *AimDirection.ToString());
+
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("NO SLUTION FOUND"));
+
+	}
+
 }
 
-void UTankAimingComponent::setBarrelReference(UStaticMeshComponent * BarrelToSet)
+void UTankAimingComponent::setBarrelReference(UTankBarrel * BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -49,5 +67,13 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UTankAimingComponent::MoveBarrel(FVector AimDirection)
+{
+	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimAsRotator - BarrelRotation;
+	Barrel->Elevate(DeltaRotator.Pitch);
 }
 
