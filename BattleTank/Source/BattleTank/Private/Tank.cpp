@@ -43,3 +43,8 @@ void ATank::setBarrelReference(UTankBarrel * BarrelToSet)
 	TankAimingComponent->setBarrelReference(BarrelToSet);
 }
 
+void ATank::setTurretReference(UTankTurret * TurretToSet)
+{
+	TankAimingComponent->setTurretReference(TurretToSet);
+}
+
