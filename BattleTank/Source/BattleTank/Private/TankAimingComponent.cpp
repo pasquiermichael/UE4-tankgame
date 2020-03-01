@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "TankAimingComponent.h"
 #include "Components/ActorComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "CollisionQueryParams.h"
@@ -7,7 +8,6 @@
 #include "TankTurret.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
-#include "TankAimingComponent.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -38,11 +38,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 		MoveTurret(AimDirection);
-		UE_LOG(LogTemp, Warning, TEXT("Tank %s Aiming at %s"), *GetOwner()->GetName(), *AimDirection.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("Tank %s Aiming at %s"), *GetOwner()->GetName(), *AimDirection.ToString());
 
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("NO SLUTION FOUND"));
+		//UE_LOG(LogTemp, Warning, TEXT("NO SLUTION FOUND"));
 
 	}
 

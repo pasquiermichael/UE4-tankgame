@@ -7,19 +7,19 @@
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("AI Begin Play"));
+	//UE_LOG(LogTemp, Warning, TEXT("AI Begin Play"));
 	ATank* CurrentTank = nullptr;
 	CurrentTank = GetControlledTank();
 	if (CurrentTank == nullptr) {
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("AI Begin Play %s"), *CurrentTank->GetName());
+	//UE_LOG(LogTemp, Warning, TEXT("AI Begin Play %s"), *CurrentTank->GetName());
 
 	ATank* PlayerTank = GetPlayerTank();
 	if (!PlayerTank) {
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("AI Found player tank %s"), *PlayerTank->GetName());
+	//UE_LOG(LogTemp, Warning, TEXT("AI Found player tank %s"), *PlayerTank->GetName());
 
 
 }

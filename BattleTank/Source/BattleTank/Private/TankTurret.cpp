@@ -5,10 +5,10 @@
 
 void UTankTurret::Rotate(float RotateSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Tank Turret"));
+	//UE_LOG(LogTemp, Warning, TEXT("Tank Turret"));
 	RotateSpeed = FMath::Clamp<float>(RotateSpeed, -1, 1);
-	auto ElevationChange = RotateSpeed ;
+	auto ElevationChange = RotateSpeed * 30 * GetWorld()->DeltaTimeSeconds;
 	auto RawNewElevation = RelativeRotation.Yaw + ElevationChange;
-	UE_LOG(LogTemp, Warning, TEXT("VECTOR %s"), *FRotator(0, RotateSpeed, 0).ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("VECTOR %s"), *FRotator(0, RotateSpeed, 0).ToString());
 	SetRelativeRotation(FRotator(0, RawNewElevation, 0));
 }
